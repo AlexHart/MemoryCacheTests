@@ -15,14 +15,14 @@ let main argv =
     printfn "Cache that expires every %f seconds" cacheSecondsDuration
 
     // Build the expression.
-    let dateCache = new MemoryCacheExpression(cache, cacheSecondsDuration)
+    let cached = new MemoryCacheExpression(cache, cacheSecondsDuration)
 
     [1..15]
     |> List.iter(fun iteration ->
         // Loop every second.
         Thread.Sleep 1000
 
-        let date = dateCache {
+        let date = cached {
             // It will only execute getDate if the value is not in the cache.
             let! dateFromCache = (keyName, getDate)
 

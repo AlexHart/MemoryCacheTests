@@ -31,10 +31,10 @@ let main argv =
             printfn "%d\tNow: %s\tcached: %s" iteration (DateTime.Now.ToLongTimeString()) dateAsString
 
             // Using the key you could return the item in the cache.
-            // But it could just be updated, so it depends on the users preference.
+            // But it could be outdated, so it depends on the users preference.
             // return! keyName 
 
-            // Without the ! just return the cached value.
+            // Without the ! just return the cached value from this call.
             return dateFromCache
         }
 

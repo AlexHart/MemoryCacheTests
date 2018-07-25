@@ -17,7 +17,9 @@ let main argv =
     // Build the expression.
     let cached = new MemoryCacheExpression(cache, cacheSecondsDuration)
 
-    [1..15]
+    let seconds = 15
+
+    [1..seconds]
     |> List.iter(fun iteration ->
         // Loop every second.
         Thread.Sleep 1000
@@ -39,5 +41,20 @@ let main argv =
         }
 
         printfn "Returned from computation expression: %s" (date.ToLongTimeString()))
+
+    printfn "----------------------------------------------"
+    printfn "------------ Example with numbers ------------"
+    printfn "----------------------------------------------"
+
+    [1..seconds]
+    |> List.iter(fun iteration ->
+        Thread.Sleep 1000
+
+        let num = cached {
+            let! valueCached = ("cached_number", fun _ -> iteration)
+            return valueCached
+        }
+
+        printfn "Iteration: %d Cached since: %d" iteration num)
     
     0
